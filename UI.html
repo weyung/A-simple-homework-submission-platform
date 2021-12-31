@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <link rel="stylesheet" type="text/css" href="main.css">
+    <link rel="icon" href="https://wymcloud.cn/images/wy.png">
+    <title>程序设计4班作业上传平台</title>
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="checkfile.js" charset="utf-8"></script>
+    <script src="get_subject.js" charset="utf-8"></script>
+    <script type="text/javascript" src="result.js" charset="utf-8"></script>
+</head>
+<body>
+    <h1 align="center">程序设计4班作业上传平台（公测）</h1><p align="center"><a href="/subject.html" target="_blank">本周作业题目</a></p>
+    <div id="maindiv" class="maindiv" >
+    <form action="" method="post" enctype="multipart/form-data" onsubmit="return checkfilesuffix()" id="fileform">
+        <br />
+        <p align="center">注：仅可上传后缀名为.c .cpp .png .jpg类型文件</p>
+        <HR style="FILTER: alpha(opacity=100,finishopacity=0,style=3)" width="60%" color=#987cb9 SIZE=3>
+        <p class="form" align="center">请输入姓名：<input type="text" class="input" name="stuname" value="" id="stuname"/></p>
+        <p class="form" align="center">请输入学号：<input type="text" class="input" name="stunum" value="" id="stunum"/></p>
+        <p class="form" align="center" id="loading">loading...</p>
+        <HR style="FILTER: alpha(opacity=100,finishopacity=0,style=3)" width="60%" color=#987cb9 SIZE=3>
+        <p  align="center" id="alert"></p>
+        <p class="form" align="center"><input type="submit" class="submit" name="submit" value="上传" id="submit"/></p>
+    </form>
+    
+    </div>
+    <p align="center">designed by 未央 
+        <a href="https://wymcloud.cn/2021/12/19/%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E4%BD%9C%E4%B8%9A%E6%8F%90%E4%BA%A4%E5%B9%B3%E5%8F%B0/" target="_blank">关于</a> 
+        <a href="/admin.php" target="_blank">作业下载（课代表用）</a>
+        <a href="?updatelog=1">更新日志</a>
+    </p>
+    <script>
+        get("getnum",1);
+    </script>
+</body>
+</html>
