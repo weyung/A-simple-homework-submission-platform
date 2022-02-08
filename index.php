@@ -3,15 +3,11 @@
     include("log.php");
     include("checkstu.php");
     $xml=simplexml_load_file("file.xml");
-    header("Content-type: text/html;charset=utf-8");
     if($_GET['source']==1){
         show_source(__FILE__);
     }
     if($_GET['rank']==1){
         showrank();
-    }
-    if($_GET['updatelog']==1){
-        showupdate();
     }
     $studir="/upload/".$_POST['stuname'].$_POST['stunum']."/";
     define("UPLOAD_PATH", dirname(__FILE__) . $studir);

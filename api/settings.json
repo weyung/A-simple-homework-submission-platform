@@ -1,0 +1,66 @@
+{
+    "title": "程序设计4班作业上传平台",
+    "description": "注:仅可上传后缀名为.c .cpp .png .jpg类型文件",
+    "info": [
+        {
+            "label": "请输入姓名: ",
+            "name": "stuname",
+            "id": "stuname"
+        },
+        {
+            "label": "请输入学号: ",
+            "name": "stunum",
+            "id": "stunum"
+        }
+    ],
+    "types": [
+        {
+            "type": "img",
+            "suffix": [
+                "png",
+                "jpg"
+            ],
+            "notes": "请上传图片"
+        },
+        {
+            "type": "sourcefile",
+            "suffix":[
+                "cpp",
+                "c"
+            ],
+            "notes": "请上传源文件"
+        }
+    ],
+    "questions": [
+        {
+            "id": 1,
+            "content": [
+                {
+                    "id": 1,
+                    "label": "第1题截图: ",
+                    "type": "img"
+                },
+                {
+                    "id": 2,
+                    "label": "第1题源文件: ",
+                    "type": "sourcefile"
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "content": [
+                {
+                    "id": 3,
+                    "label": "第2题截图: ",
+                    "type": "img"
+                },
+                {
+                    "id": 4,
+                    "label": "第2题源文件: ",
+                    "type": "srcfile"
+                }
+            ]
+        }
+    ]
+}

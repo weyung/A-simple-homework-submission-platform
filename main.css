@@ -10,8 +10,10 @@ p {
 	margin:0 auto;
 	box-shadow:0 0 6px #000;
 	background-color:white;
-	width:80%;
+	width:50%;
 	overflow:auto;
+    padding-left: 5%;
+    padding-right: 5%;
 }
 .info{
 	margin:0 auto;

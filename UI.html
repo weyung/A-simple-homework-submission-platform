@@ -1,39 +1,204 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
+
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-    <link rel="stylesheet" type="text/css" href="main.css">
-    <link rel="icon" href="https://wymcloud.cn/images/wy.png">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0, user-scalable=yes" />
     <title>程序设计4班作业上传平台</title>
-    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <link rel="icon" href="https://wymcloud.cn/images/wy.png">
+    <link href="https://cdn.staticfile.org/twitter-bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.staticfile.org/bootstrap-fileinput/5.2.7/css/fileinput.min.css" rel="stylesheet">
+    <script src="https://cdn.staticfile.org/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/vue/2.6.14/vue.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://cdn.staticfile.org/bootstrap-fileinput/5.2.7/js/fileinput.min.js"></script>
+    <script src="https://cdn.staticfile.org/bootstrap-fileinput/5.2.7/js/locales/zh.min.js"></script>
     <script src="checkfile.js" charset="utf-8"></script>
-    <script src="get_subject.js" charset="utf-8"></script>
-    <script type="text/javascript" src="result.js" charset="utf-8"></script>
+    <script src="result.js" charset="utf-8"></script>
+    <script>var onResize = function () { $("body").css("margin-top", $(".navbar").height()); };
+        $(window).resize(onResize); $(function () { onResize(); });
+    </script>
 </head>
+
 <body>
-    <h1 align="center">程序设计4班作业上传平台（公测）</h1><p align="center"><a href="/subject.html" target="_blank">本周作业题目</a></p>
-    <div id="maindiv" class="maindiv" >
-    <form action="" method="post" enctype="multipart/form-data" onsubmit="return checkfilesuffix()" id="fileform">
-        <br />
-        <p align="center">注：仅可上传后缀名为.c .cpp .png .jpg类型文件</p>
-        <HR style="FILTER: alpha(opacity=100,finishopacity=0,style=3)" width="60%" color=#987cb9 SIZE=3>
-        <p class="form" align="center">请输入姓名：<input type="text" class="input" name="stuname" value="" id="stuname"/></p>
-        <p class="form" align="center">请输入学号：<input type="text" class="input" name="stunum" value="" id="stunum"/></p>
-        <p class="form" align="center" id="loading">loading...</p>
-        <HR style="FILTER: alpha(opacity=100,finishopacity=0,style=3)" width="60%" color=#987cb9 SIZE=3>
-        <p  align="center" id="alert"></p>
-        <p class="form" align="center"><input type="submit" class="submit" name="submit" value="上传" id="submit"/></p>
-    </form>
-    
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation" style="background-color: #1890ff;color:white">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <span class="navbar-brand" id="title" style="color: white;">{{title}}</span>
+            </div>
+            <div>
+                <ul class="nav navbar-nav">
+                    <li><a data-toggle="modal" data-target="#weeklysubject" style="color: white;" href="#" target="_blank">本周作业题目</a></li>
+                    <li><a data-toggle="modal" data-target="#rankmodal" style="color: white;" href="#" target="_blank">提交排行</a></li>
+                    <li><a data-toggle="modal" data-target="#updatelogmodal" style="color: white;" href="#">更新日志</a></li>
+                    <li><a rel="noopener norefferrer" style="color: white;" href="https://wymcloud.cn/2021/12/19/%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E4%BD%9C%E4%B8%9A%E6%8F%90%E4%BA%A4%E5%B9%B3%E5%8F%B0/"
+                            target="_blank">关于</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div id="maindiv" class="container">
+        <form class="form-horizontal" align="center" role="form" action="" method="post" enctype="multipart/form-data"
+            onsubmit="return checkfilesuffix()" id="fileform">
+            <br />
+            <h3 id="descr" align="center" class="text-info"></h3>
+            <HR id="spline1" style="FILTER: alpha(opacity=100,finishopacity=0,style=3)" width="60%" color=#987cb9
+                SIZE=3>
+            <p class="form" align="center" id="loading">页面加载中，请稍等(^ ^) ロードしています...しばらくお待ちください(^ ^) Loading, just a
+                second...</p>
+            <div id="info">
+                <div class="form-group" v-for="input in inputs">
+                    <label v-bind:for="input.id" class="col-md-2 col-md-offset-3 control-label">{{input.label}}</label>
+                    <div class="col-md-3">
+                        <input type="text" class="form-control" v-bind:id="input.id" v-bind:name="input.name"/>
+                    </div>
+                </div>
+            </div>
+            <HR id="spline2" style="FILTER: alpha(opacity=100,finishopacity=0,style=3)" width="60%" color=#987cb9
+                SIZE=3>
+            <p align="center" id="alert"></p>
+            <p class="form" align="center"><input type="submit" class="btn btn-info btn-lg" name="submit" value="上传" id="submit" />
+            </p>
+        </form>
     </div>
-    <p align="center">designed by 未央 
-        <a href="https://wymcloud.cn/2021/12/19/%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E4%BD%9C%E4%B8%9A%E6%8F%90%E4%BA%A4%E5%B9%B3%E5%8F%B0/" target="_blank">关于</a> 
-        <a href="/admin.php" target="_blank">作业下载（课代表用）</a>
-        <a href="?updatelog=1">更新日志</a>
-    </p>
-    <script>
-        get("getnum",1);
+
+    <div class="modal fade" id="weeklysubject" tabindex="-1" role="dialog" aria-labelledby="weeklysubjectLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="weeklysubjectLabel1">本周作业</h4>
+                </div>
+                <div class="modal-body">
+                    <p><s>本周没有作业喔喔喔喔︿(￣︶￣)︿</s></p>
+                    <p><s>输入10个整数，将其中最小的数与第一个数对换，把最大的数与最后一个数对换。写3个函数：（1）输入10个数；（2）进行处理；（3）输出10个数。（通过指针引用数组）</s></p>
+                    <p>编一程序，输入月份号，输出该月的英文月名。例如，输入3，则输出“March”。要求用指针数组处理。</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="updatelogmodal" tabindex="-1" role="dialog" aria-labelledby="updatelogLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="updatelogLabel1">{{title}}</h4>
+                </div>
+                <div class="modal-body" id="updatelog">
+                    <table class="table table-striped table-bordered">
+                        <thead>
+                            <tr><th class="text-center">日期</th><th class="text-center">更新内容</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr align="center" v-for="row in rows"><td>{{row.time}}</td><td>{{row.content}}</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="rankmodal" tabindex="-1" role="dialog" aria-labelledby="rankLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="rankLabel1">{{title}}</h4>
+                </div>
+                <div class="modal-body" id="rank">
+                    <table class="table table-striped table-bordered">
+                        <thead>
+                            <tr><th class="text-center">姓名</th><th class="text-center">学号</th><th class="text-center">提交时间</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr align="center" v-for="row in rows"><td>{{row.name}}</td><td>{{row.id}}</td><td>{{row.time}}</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        function loadform(info, questions) {
+            new Vue({
+                el: '#info',
+                data: {
+                    inputs: info
+                }
+                })
+            for (var i in questions) {
+                for (var j in questions[i].content) {
+                    var newdiv = $("<div>")
+                    newdiv.attr({ class: "form-group" })
+                    var newlabel = $("<label>")
+                    newlabel.attr({ for: info[i].id, class: 'col-md-2 col-md-offset-3 control-label' })
+                    newlabel.text(questions[i].content[j].label)
+                    var newcdiv = $("<div>")
+                    newcdiv.attr({ class: 'col-md-4' })
+                    var newinput = $("<input>")
+                    newinput.attr({
+                        type: "file",
+                        class: "file",
+                        name: "file[]",
+                        id: questions[i].content[j].id,
+                        title: questions[i].content[j].type,
+                    })
+                    newdiv.append(newlabel, newcdiv.append(newinput))
+                    $("#spline2").before(newdiv)
+                    $("#"+questions[i].content[j].id).fileinput({
+                        language:'zh',
+                        showUpload:false,
+                        maxFileSize:666.0,
+                        // msgSizeTooLarge:'文件大小超出限制'
+                    });
+                }
+            }
+            $("#loading").remove();
+        }
+        function load(key, value){
+            var url = "/api/?" + key + "=" + value;
+            $.get(url, function (data, status) {
+                var obj = data;
+                $("#title").text(obj.title)
+                $("#descr").text(obj.description)
+                loadform(obj.info, obj.questions)
+            }, 'json');
+        }
+        function showupdatelog(){
+            $.get('/api/updatelog/', function (data, status) {
+                new Vue({
+                    el: '#updatelogmodal',
+                    data: {
+                        title: data.title,
+                        rows: data.tbody
+                }})
+            }, 'json');
+        }
+        function showrank(){
+            $.get('/api/rank/', function (data, status) {
+                new Vue({
+                    el: '#rankmodal',
+                    data: {
+                        title: data.title,
+                        rows: data.tbody
+                }})
+            }, 'json');
+        }
+        showrank();
+        showupdatelog();
+        load('ini', 1);
     </script>
 </body>
 </html>

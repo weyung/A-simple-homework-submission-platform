@@ -1,5 +1,4 @@
 <?php
-header("Content-type: text/html;charset=utf-8");
 define("CLASS_PATH","./src/class.tsv");
 function showclass(){
     echo "<table align=\"center\" border=\"1px\" cellspacing=\"0px\" width=\"800px\">";
